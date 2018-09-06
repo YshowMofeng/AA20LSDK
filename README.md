@@ -21,7 +21,7 @@
 	        google()
 	        jcenter()
 	        maven {
-	            url "https://github.com/YshowMofeng/YshowSDK/raw/master"
+	            url "https://github.com/YshowMofeng/AA20LSDK/raw/master"
 	        }
 	    }
 	}
