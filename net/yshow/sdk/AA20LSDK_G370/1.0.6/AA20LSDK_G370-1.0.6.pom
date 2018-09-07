@@ -3,10 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.yshow.sdk</groupId>
-  <artifactId>AA20LSDK_G3</artifactId>
+  <artifactId>AA20LSDK_G370</artifactId>
   <version>1.0.6</version>
   <packaging>aar</packaging>
-  <name>AA20LSDK_G3</name>
+  <name>AA20LSDK_G370</name>
   <dependencies>
     <dependency>
       <groupId>com.android.support</groupId>
