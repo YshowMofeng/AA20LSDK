@@ -28,28 +28,7 @@
 
 > 2.在`app/build.gradle`下引入SDK库
 
-    implementation ('net.yshow.sdk:AA20LSDK:+'){
-        //当前SDK使用了Glide做图片的三级缓存,如果你在主项目中已经集成了Glide,或者不希望使用Glide,打开下面这行的注释即可,
-        //注意,关闭Glide后将不再支持缓存和Gif的广告
-        //exclude group:  'com.github.bumptech.glide',module:'glide'
-
-        //当前SDK依赖微信SDK,如果你在主项目中集成了微信SKD,需要打开下面这行的注释
-        //exclude group: 'com.tencent.mm.opensdk' ,module:'wechat-sdk-android-without-mta'
-    }
-
-> 注意,Glide 使用的支持库版本为 27。如果你需要使用不同的支持库版本，请打开这行`exclude group:  'com.github.bumptech.glide',module:'glide'`的注释,并且在您的build.gradle中引入Glide.
-> 
-> 假如你想使用 v26 的支持库：
-	
-	dependencies {
-	    implementation ('net.yshow.sdk:AA20LSDK:+'){
-	        exclude group:  'com.github.bumptech.glide',module:'glide'
-	    }
-		implementation ("com.github.bumptech.glide:glide:4.8.0") {
-			exclude group: "com.android.support"
-		}
-		implementation "com.android.support:support-fragment:26.1.0"
-	}
+    implementation ('net.yshow.sdk:AA20LSDK:+')
 
 ####离线线版本引入
 
