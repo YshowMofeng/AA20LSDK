@@ -42,10 +42,13 @@
 > 假如你想使用 v26 的支持库：
 	
 	dependencies {
-	  implementation ("com.github.bumptech.glide:glide:4.8.0") {
-	    exclude group: "com.android.support"
-	  }
-	  implementation "com.android.support:support-fragment:26.1.0"
+	    implementation ('net.yshow.sdk:AA20LSDK:+'){
+	        exclude group:  'com.github.bumptech.glide',module:'glide'
+	    }
+		implementation ("com.github.bumptech.glide:glide:4.8.0") {
+			exclude group: "com.android.support"
+		}
+		implementation "com.android.support:support-fragment:26.1.0"
 	}
 
 ####离线线版本引入
