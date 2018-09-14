@@ -30,57 +30,10 @@
 
     implementation ('net.yshow.sdk:AA20LSDK:+')
 
-####离线线版本引入
+>//针对Glide3.7.0版本改为下面这个
 
-
-####引入
-
-> 1.在app的build.gradle中加入以下配置
-
-	repositories {    
-	    flatDir {        
-	        dirs 'libs'   // aar目录
-	      }
-	}
-
-> 2.离线包内提供有`AA20LSDK-X.X.X.aar`文件   将该aar文件拷贝到app/libs目录下
-> 
-> 3.在dependencies中加入aar引用
-
-	implementation(name: 'AA20LSDK-X.X.X', ext: 'aar')
-或
-
-	compile(name: 'AA20LSDK-X.X.X', ext: 'aar')
-
-> 4.在AndroidManifest.xml中申请权限
-
-	<!--必须权限-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-	<!--非必须权限-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<!--Glide的缓存需要的权限-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-> 5.在dependencies中引用第三方库
-
-	//必须
-    implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
-	//非必须
-	//当前SDK使用了Glide做图片的三级缓存,如果你不希望使用Glide,将下面这行的注释即可,
-    //注意,关闭Glide后将不再支持缓存和Gif的广告
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-> 注意,Glide 使用的支持库版本为 27。如果你需要使用不同的支持库版本，你需要在你的 build.gradle 文件里去从 Glide 的依赖中去除 "com.android.support"。
-> 
-> 假如你想使用 v26 的支持库：
-	
-	dependencies {
-	  implementation ("com.github.bumptech.glide:glide:4.8.0") {
-	    exclude group: "com.android.support"
-	  }
-	  implementation "com.android.support:support-fragment:26.1.0"
+    api ('net.yshow.sdk:AA20LSDK_G370:+'){
+		exclude group: "com.github.bumptech.glide"
 	}
 
 ####使用
@@ -121,28 +74,61 @@
 	    android:layout_height="match_parent"
 	    android:orientation="vertical"
 	    tools:context=".MainActivity">
-	
-	    <net.yshow.adsdk.ADView
-	        xmlns:app="http://schemas.android.com/apk/res-auto"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-            android:padding="10dp"
+
+        <net.yshow.adsdk.ADView 
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:WeChatAppId="你从微信开放平台申请到的AppId"
 	        app:slotCode="你从20L开发后台申请到的slotCode"
-	        app:WeChatAppId="你从微信开放平台申请到的AppId"></net.yshow.adsdk.ADView>
+            app:adType="banner"></net.yshow.adsdk.ADView>
+
+        <net.yshow.adsdk.ADView 
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:WeChatAppId="你从微信开放平台申请到的AppId"
+	        app:slotCode="你从20L开发后台申请到的slotCode"
+            app:adType="card"
+            app:subscriptTextSize="15dp"
+            app:titleTextSize="20dp"></net.yshow.adsdk.ADView>
 	</LinearLayout>
 
-其中`app:WeChatAppId=""`与`AndroidManifest.xml` 中的`meta-data` 配置其中一处即可
 
-注意: `ADView` 会忽略 `android:layout_height`的值,图片固定以680*340的比例显示,文字最多为2行 建议在竖屏界面中`android:layout_width`的值设置为`match_parent`
+
+- 其中`app:WeChatAppId=""`与`AndroidManifest.xml` 中的`meta-data` 配置其中一处即可
+
+- 广告类型`app:adType`有两个值  分别是卡片广告`card` 和 横幅广告`banner` 缺省值为`card`
+
+- 卡片广告中 `app:titleTextSize`为标题的文字大小  `app:subscriptTextSize`为下标`贰拾楼广告联盟`的字体大小
+
+- 横幅广告中`app:titleTextSize`和`app:subscriptTextSize`无效
+
+- 注意: `ADView` 会忽略 `android:layout_height`的值,在卡片广告类型下图片固定以680x340的比例显示,文字最多为2行;在横幅广告类型下图片以375x90的比例显示;建议在竖屏界面中`android:layout_width`的值设置为`match_parent`
 
 > 2.2方式二:代码动态添加
 
+	//卡片广告
 	ADView adView = new ADView(context);
 	adView.setSlotCode("你从20L开发后台申请到的slotCode");
+	adView.setAdType(ADView.AD_TYPE_CARD);
+	adView.setSubscriptTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
+	adView.setTitleTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
 	viewGroup.addView(adView);
 
-**ADView提供两个开放的方法**
+	//横幅广告
+
+    ADView adView = new ADView(context);
+    adView.setSlotCode("你从20L开发后台申请到的slotCode");
+    adView.setAdType(ADView.AD_TYPE_BANNER);
+    viewGroup.addView(adView);
+
+**ADView提供的方法**
 	
 	ADView.setSlotCode(String)//重新设置广告位
 	ADView.loadImage()//重新载入广告
-
+	ADView.setAdType(int)//设置广告类型  ADView.AD_TYPE_CARD  或  ADView.AD_TYPE_BANNER  
+	ADView.setTitleTextSize(int,int)//设置卡片广告的标题文字大小,用法等同TextView.setTextSize(int,int)
+	ADView.setSubscriptTextSize(int,int)//设置卡片广告的下标文字大小,用法等同TextView.setTextSize(int,int)
