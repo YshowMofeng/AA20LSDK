@@ -3,11 +3,12 @@
   <groupId>net.yshow.sdk</groupId>
   <artifactId>AA20LSDK_G370</artifactId>
   <versioning>
-    <release>1.0.8</release>
+    <release>1.0.9</release>
     <versions>
       <version>1.0.7</version>
       <version>1.0.8</version>
+      <version>1.0.9</version>
     </versions>
-    <lastUpdated>20180917075455</lastUpdated>
+    <lastUpdated>20180918065202</lastUpdated>
   </versioning>
 </metadata>
