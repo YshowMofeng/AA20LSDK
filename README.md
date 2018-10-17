@@ -29,12 +29,20 @@
 > 2.在`app/build.gradle`下引入SDK库
 
     implementation ('net.yshow.sdk:AA20LSDK:+')
+	//{
+	//当前sdk使用了  com.android.support:appcompat-v7:25.4.0   如果引入后报错了   打开下面这行的注释
+	//    exclude group: "com.android.support"
+	//当前sdk使用了 com.github.bumptech.glide:glide:4.8.0   如果引入后报错了   打开下面这行的注释
+	//    exclude group: "com.github.bumptech.glide"
+	//}
 
 >//针对Glide3.7.0版本改为下面这个
 
     api ('net.yshow.sdk:AA20LSDK_G370:+'){
 		exclude group: "com.github.bumptech.glide"
 	}
+
+>//如果使用了其他版本的Glide并且以上两个引入方法都报错了,请联系我重新打包一个SDK
 
 ####使用
 
